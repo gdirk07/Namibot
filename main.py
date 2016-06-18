@@ -1,9 +1,11 @@
 import discord
 import asyncio
 
+#client object for the bot
 client = discord.Client()
 
-
+#whenever an event happens to the client we need @client.event
+#more reading up required
 @client.event
 @asyncio.coroutine 
 def on_ready():
