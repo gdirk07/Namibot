@@ -1,9 +1,23 @@
 import discord
 import asyncio
-
+import os
 #client object for the bot
 client = discord.Client()
 
+#Read the password from the file
+def readPassFromFile():
+	print("Looking for password file...")
+	for root, dirs, files in os.walk("noncommits"):
+		if 'LocalPass.txt' in files:
+			pathtoPassword = os.path.join('noncommits', 'LocalPass.txt')
+			f = open(pathtoPassword, 'r')
+			return f.readline()
+		else:
+			print("Password file not found in 'noncommits/LocalPass.txt'")
+			print("make sure you have a 'LocalPass.txt' file in your")
+			print("noncommits directory which contains a single string, the password to the bot account")
+			
+			
 #whenever an event happens to the client we need @client.event
 #more reading up required
 @client.event
@@ -37,4 +51,4 @@ def on_voice_state_update(oldmember, member):
 #run command logs in the bot, since the bot is a user she'll join
 #all the channels she's a part of.
 #params: username, password
-client.run('simplenamibot@gmail.com', 'Iamabot')
+client.run('simplenamibot@gmail.com', readPassFromFile())
